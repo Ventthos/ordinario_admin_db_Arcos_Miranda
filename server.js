@@ -21,6 +21,13 @@ app.get('/api/estudiantes', async (req, res)=>{
     res.json(estudiantes);
 });
 
+app.post('/api/estudiantes', async (req, res)=>{
+    const {nombre, apellidos, email, matricula, edad, semestre} = req.body;
+    const result = await db.query(`INSERT INTO estudiantes (nombre, apellidos, email, matricula,
+        edad, semestre, usuario_creacion, fecha_creacion) VALUES (?, ?, ?, ?,?,?,?,NOW())`, [nombre, apellidos, email, matricula, edad, semestre, "admin"]);
+    res.json(result);
+});
+
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`);
 });
