@@ -6,12 +6,18 @@ class DatabaseHandler {
     }
 
     async query(sql, params) {
-        try{
+        try {
             const [rows, fields] = await this.pool.execute(sql, params);
-            return rows;
-        }catch(error){
+            return {
+                success: true,
+                data: rows
+            };
+        } catch (error) {
             console.error('Error executing query:', error);
-            throw error;
+            return {
+                success: false,
+                error: error.message
+            };
         }
     }
 }

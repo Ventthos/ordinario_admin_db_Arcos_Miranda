@@ -17,8 +17,12 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/api/estudiantes', async (req, res)=>{
-    const estudiantes = await db.query('SELECT * FROM estudiantes');
-    res.json(estudiantes);
+    const result = await db.query('SELECT * FROM estudiantes');
+    if(result.success){
+        res.json(result.data);
+    }
+    res.status(500).json({error: result.error});
+
 });
 
 app.post('/api/estudiantes', async (req, res)=>{
