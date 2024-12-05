@@ -39,7 +39,10 @@ app.post('/api/estudiantes',
     const {nombre, apellidos, email, matricula, edad, semestre} = req.body;
     const result = await db.query(`INSERT INTO estudiantes (nombre, apellidos, email, matricula,
         edad, semestre, usuario_creacion, fecha_creacion) VALUES (?, ?, ?, ?,?,?,?,NOW())`, [nombre, apellidos, email, matricula, edad, semestre, "admin"]);
-    res.json(result);
+    if(result.success){
+        return res.status(201).json({message: 'Estudiante creado'});
+    }
+    return res.status(500).json({error: result.error});
 });
 
 app.listen(port, ()=>{
