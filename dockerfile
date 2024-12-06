@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copia el package.json y package-lock.json
 COPY package*.json ./
+COPY .env .env
 
 # Instala las dependencias
 RUN npm install
@@ -14,7 +15,7 @@ RUN npm install
 COPY . .
 
 # Exponer el puerto en el que se ejecutará la aplicación
-EXPOSE 3000
+EXPOSE ${NODE_PORT}
 
 # Comando para iniciar el servidor
 CMD ["node", "server.js"]
