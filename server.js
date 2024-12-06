@@ -33,17 +33,46 @@ app.post('/api/estudiantes',
         email: 'string',
         matricula: 'string',
         edad: 'number',
-        semestre: 'string'
+        semestre: 'string',
+        usuario_creacion: 'string'
     }),
     async (req, res)=>{
-    const {nombre, apellidos, email, matricula, edad, semestre} = req.body;
-    const result = await db.query(`INSERT INTO estudiantes (nombre, apellidos, email, matricula,
-        edad, semestre, usuario_creacion, fecha_creacion) VALUES (?, ?, ?, ?,?,?,?,NOW())`, [nombre, apellidos, email, matricula, edad, semestre, "admin"]);
-    if(result.success){
-        return res.status(201).json({message: 'Estudiante creado'});
+        const {nombre, apellidos, email, matricula, edad, semestre, usuario_creacion} = req.body;
+        const result = await db.query(`INSERT INTO estudiantes (nombre, apellidos, email, matricula,
+            edad, semestre, usuario_creacion, fecha_creacion) VALUES (?, ?, ?, ?,?,?,?,NOW())`, [nombre, apellidos, email, matricula, edad, semestre, usuario_creacion]);
+        if(result.success){
+            return res.status(201).json({message: 'Estudiante creado'});
+        }
+        return res.status(500).json({error: result.error});
     }
-    return res.status(500).json({error: result.error});
+);
+
+app.get('/api/maestros', async (req, res)=>{
+    const result = await db.query('SELECT * FROM maestros');
+    if(result.success){
+        res.json(result.data);
+    }
+    res.status(500).json({error: result.error});
 });
+
+app.post('/api/maestros',
+    validateRequest({
+        nombre: 'string',
+        edad: 'number',
+        telefono: 'string',
+        correo: 'string',
+        usuario_creacion: 'string'
+    }),
+    async (req, res)=>{
+        const {nombre, edad, telefono, correo, usuario_creacion} = req.body;
+        const result = await db.query(`INSERT INTO maestros (nombre, edad, telefono, correo, usuario_creacion, fecha_creacion) 
+            VALUES (?, ?, ?, ?, ?, NOW())`, [nombre, edad, telefono, correo, usuario_creacion]);
+        if(result.success){
+            return res.status(201).json({message: 'Maestro creado'});
+        }
+        return res.status(500).json({error: result.error});
+    }
+); 
 
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`);
