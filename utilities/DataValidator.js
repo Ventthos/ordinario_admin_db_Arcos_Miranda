@@ -9,7 +9,7 @@ function validateRequest(expectedSchema) {
             if (!(key in body)) {
                 return res.status(400).json({ error: `Hay un campo faltante: ${key}` });
             }
-            
+
             // Validar el tipo del campo
             if (typeof body[key] !== expectedType) {
                 return res.status(400).json({
