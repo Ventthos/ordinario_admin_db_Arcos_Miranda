@@ -9,6 +9,12 @@ function validateRequest(expectedSchema) {
             if (!(key in body)) {
                 return res.status(400).json({ error: `Hay un campo faltante: ${key}` });
             }
+
+            if (body[key] === null || body[key] === '') {
+                return res.status(400).json({
+                    error: `El campo ${key} no puede estar vacío o nulo.`
+                });
+            }
             
             // Validar el tipo del campo
             if (typeof body[key] !== expectedType) {
