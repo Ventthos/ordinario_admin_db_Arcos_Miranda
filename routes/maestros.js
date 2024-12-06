@@ -1,9 +1,12 @@
+// Configuración de express
 const express = require('express');
 const router = express.Router();
 
+// Dependencias necesarias
 const {validateRequest} = require('../utilities/DataValidator.js');
 const db = require('../db/database.js');
 
+// GET todos los maestros
 router.get('/', async (req, res)=>{
     const result = await db.query('SELECT * FROM maestros');
     if(result.success){
@@ -12,6 +15,7 @@ router.get('/', async (req, res)=>{
     res.status(500).json({error: result.error});
 });
 
+// POST maestros
 router.post('/',
     validateRequest({
         nombre: 'string',
