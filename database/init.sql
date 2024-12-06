@@ -1,6 +1,6 @@
 USE ordinario_modelo_admin;
 CREATE TABLE `estudiantes` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `nombre` varchar(150) NOT NULL,
   `apellidos` varchar(200) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `estudiantes` (
 );
 
 CREATE TABLE `maestros` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `nombre` varchar(255) NOT NULL,
   `edad` integer NOT NULL,
   `telefono` bigint NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `maestros` (
 );
 
 CREATE TABLE `materias` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `nombre` varchar(255) NOT NULL,
   `profesor_id` INT NOT NULL,
   `create_user` varchar(100) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `materias` (
 );
 
 CREATE TABLE `calificaciones` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `estudiante_id` integer NOT NULL,
   `maestro_id` integer NOT NULL,
   `materia_id` integer NOT NULL,
