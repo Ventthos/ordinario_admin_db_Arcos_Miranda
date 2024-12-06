@@ -10,6 +10,8 @@ const port = process.env.NODE_PORT;
 // Importación de rutas
 const maestrosRoutes = require('./routes/maestros.js');
 const estudiantesRoutes = require('./routes/estudiantes.js');
+const asignaturasRoutes = require('./routes/asignaturas.js');
+
 
 //Rutas
 app.get('/', (req, res)=>{
@@ -18,6 +20,7 @@ app.get('/', (req, res)=>{
 
 app.use('/api/estudiantes', estudiantesRoutes);
 app.use('/api/maestros', maestrosRoutes);
+app.use('/api/asignaturas', asignaturasRoutes);
 
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`);
