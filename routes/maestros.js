@@ -29,7 +29,11 @@ router.post('/',
         const result = await db.query(`INSERT INTO maestros (nombre, edad, telefono, correo, usuario_creacion, fecha_creacion) 
             VALUES (?, ?, ?, ?, ?, NOW())`, [nombre, edad, telefono, correo, usuario_creacion]);
         if(result.success){
-            return res.status(201).json({message: 'Maestro creado'});
+            const createdTeacher = {
+                id: result.data.insertId,
+                ...req.body
+            };
+            return res.status(201).json(createdTeacher);
         }
         return res.status(500).json({error: result.error});
     }

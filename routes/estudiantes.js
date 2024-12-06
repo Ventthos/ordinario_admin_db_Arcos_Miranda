@@ -32,7 +32,11 @@ router.post('/',
         const result = await db.query(`INSERT INTO estudiantes (nombre, apellidos, email, matricula,
             edad, semestre, usuario_creacion, fecha_creacion) VALUES (?, ?, ?, ?,?,?,?,NOW())`, [nombre, apellidos, email, matricula, edad, semestre, usuario_creacion]);
         if(result.success){
-            return res.status(201).json({message: 'Estudiante creado'});
+            const createdStudent = {
+                id: result.data.insertId,
+                ...req.body
+            };
+            return res.status(201).json(createdStudent);
         }
         return res.status(500).json({error: result.error});
     }
