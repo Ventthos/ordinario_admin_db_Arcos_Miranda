@@ -8,11 +8,16 @@ const db = require('../db/database.js');
 
 // GET todas las asignaturas
 router.get('/', async (req, res) => {
-    const result = await db.query('SELECT * FROM materias');
-    if (result.success) {
-        return res.json(result.data);
+    try {
+        const result = await db.query('SELECT * FROM materias');
+        if (result.success) {
+            return res.json(result.data);
+        }
+        return res.status(500).json({ error: result.error });
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el servidor' });
     }
-    return res.status(500).json({ error: result.error });
+    
 });
 
 
