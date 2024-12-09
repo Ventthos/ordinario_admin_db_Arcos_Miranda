@@ -10,9 +10,9 @@ const db = require('../db/database.js'); //Pool de db
 router.get('/', async (req, res)=>{
     const result = await db.query('SELECT * FROM estudiantes');
     if(result.success){
-        res.json(result.data);
+        return res.json(result.data);
     }
-    res.status(500).json({error: result.error});
+    return res.status(500).json({error: result.error});
 
 });
 
