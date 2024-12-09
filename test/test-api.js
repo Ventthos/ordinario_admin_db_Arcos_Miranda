@@ -7,10 +7,11 @@ const baseUrl = process.env.BASE_URL; //agregar la url base al .env para evitar 
 //POST
 (async () => {
     try {            
-        const url = `${baseUrl}/api/asignaturas`;
+        const url = `${baseUrl}/api/calificaciones`;
         const body = {
-            nombre: 'Matematicas III',
-            profesor_id: 1,
+            estudiante_id: 1,
+            maestro_id: 2,
+            materia_id: 2,
             create_user: 'admin'
         };
         const response = await fetch(url, {
@@ -28,15 +29,18 @@ const baseUrl = process.env.BASE_URL; //agregar la url base al .env para evitar 
     } catch (error) {
         console.error('Error en la prueba:', error);
     }
-})();
+})();  
 
 // GET
 (async () => {
     try {
-        const url = `${baseUrl}/api/asignaturas`;
+        const url = `${baseUrl}/api/calificaciones`;
         const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
-        console.log(data);
+        console.log('Respuesta del servidor: ',data);
     } catch (error) {
         console.error('Error en la solicitud API:', error);
     }
