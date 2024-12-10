@@ -15,7 +15,7 @@ CREATE TABLE `maestros` (
   `id` integer PRIMARY KEY,
   `nombre` varchar(255) NOT NULL,
   `edad` integer NOT NULL,
-  `telefono` bigint NOT NULL,
+  `telefono` VARCHAR(14) NOT NULL,
   `correo` varchar(255) NOT NULL,
   `usuario_creacion` varchar(100) NOT NULL,
   `fecha_creacion` datetime NOT NULL
